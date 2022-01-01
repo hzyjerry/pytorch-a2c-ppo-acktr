@@ -202,7 +202,10 @@ class VecNormalize(VecNormalize_):
     def reset(self):
         self.ret = np.zeros(self.num_envs)
         obs = self.venv.reset()
-        return self._obfilt(obs)
+        if self.return_orig_obs:
+            return obs
+        else:
+            return self._obfilt(obs)
 
 
 # Derived from
