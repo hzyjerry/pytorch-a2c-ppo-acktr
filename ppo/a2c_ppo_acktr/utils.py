@@ -45,6 +45,15 @@ def update_linear_schedule(optimizer, epoch, total_num_epochs, initial_lr):
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr
 
+
+def update_linear_schedule_v2(optimizers, epoch, total_num_epochs, initial_lrs):
+    """Decreases the learning rate linearly"""
+    for optimizer, initial_lr in zip(optimizers, initial_lrs):
+        lr = initial_lr - (initial_lr * (epoch / float(total_num_epochs)))
+        for param_group in optimizer.param_groups:
+            param_group['lr'] = lr
+
+
 def init(module, weight_init, bias_init, gain=1):
     weight_init(module.weight.data, gain=gain)
     bias_init(module.bias.data)
